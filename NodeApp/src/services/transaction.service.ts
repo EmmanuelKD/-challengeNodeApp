@@ -19,8 +19,11 @@ export async function updateTransfer(query: FilterQuery<TransactionDocument>, up
 
 export async function getAllUsersTransfer(query: string) {
     try {
-        return await Transaction.find({}).$where("from").equals(query);
         
+        return await Transaction.find({$or: [{"from": query},
+        {"to": query}]});
+        // return await Transaction.where("from").equals(query);
+
     } catch (e) {
         throw new Error(e + "");
     }
