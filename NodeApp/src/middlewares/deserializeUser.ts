@@ -7,7 +7,7 @@ import { reIssueAccessToken } from "../services/session.service";
 import { decode } from "../utils/JWT.util";
 
 const deserializeUser = async (req: Request, res: Response, next: NextFunction) => {
-
+    try{
     log.info("verifying token ")
     const accessToken = get(req, "headers.authorization", "").replace(/^Bearer\s/, "");
 
@@ -26,7 +26,8 @@ const deserializeUser = async (req: Request, res: Response, next: NextFunction) 
     }
 
     if (expired && refreshToken) {
-        const newAccessToken = await reIssueAccessToken({ refreshToken });
+         const newAccessToken = await reIssueAccessToken({ refreshToken });
+
         if (newAccessToken) {
             // add the new accwss token to the refresf token
             res.setHeader("x-access-token", newAccessToken);
@@ -42,6 +43,10 @@ const deserializeUser = async (req: Request, res: Response, next: NextFunction) 
     }
     log.info("done verifying token 4")
     return next();
+
+}catch(e){
+    res.send(e+"").sendStatus(401)
+}
 
 }
 export default deserializeUser;

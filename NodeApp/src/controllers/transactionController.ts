@@ -41,8 +41,7 @@ const getAllTransactions = async (req: Request, res: Response) => {
     try {
         const user: string = get(req, "user");
         const refId = get(user, "_id");
-        console.log(refId)
-        if (refId) {
+         if (refId) {
             var returnModel = await getAllUsersTransfer(refId);
             res.send(returnModel)
         } else {
@@ -60,8 +59,7 @@ const deleteAllTransactions = async (req: Request, res: Response) => {
     try {
         const user: string = get(req, "user");
         const refId = get(user, "_id");
-         console.log(refId)
-        if (refId) {
+         if (refId) {
             var returnModel = await deleteAllTransfer({ to: refId, from:refId });
             res.send(returnModel)
         } else {
@@ -83,9 +81,9 @@ const deleteAllTransactions = async (req: Request, res: Response) => {
 
 const deleteTransactionById = async (req: Request, res: Response) => {
     try {
-        const user: string = get(req, "user");
-        const id: string = req.param("id");//working for now , change later
-        const refId = get(user, "_id");
+        // const user: string = get(req, "user");
+        const id: string = req.query?.id as string;  
+        // const refId = get(user, "_id");
         console.log(id)
         if (id) {
             var returnModel = await deleteTransferById({ _id: id });
@@ -95,7 +93,7 @@ const deleteTransactionById = async (req: Request, res: Response) => {
         }
 
     } catch (e) {
-        log.error(e + "")
+        log.error(e + "===transaction controler");
         res.statusCode = 401;
         res.send({ message: e })
     }

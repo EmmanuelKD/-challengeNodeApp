@@ -7,6 +7,7 @@ import { decode, signin } from "../utils/JWT.util";
 import config from "config"
 import { get } from "lodash"
 import { findUser } from "./user.service";
+import log from "../logger";
 export async function createSession(userId: UserDocument["_id"], userAgent: string) {
 
     try {
@@ -55,9 +56,10 @@ export async function reIssueAccessToken({ refreshToken }: {
         //get the session
         const session = await Session.findById(get(decode, "_id"));
 
-        // validate the session
-        if (!session || !session?.valid) throw new Error("invalid session");
-
+         // validate the session
+        if (!session || !session?.valid){ 
+            throw new Error("invalid session");
+        }
         const user = await findUser({ _id: session.user });
 
         if (!user) return false;
