@@ -19,12 +19,7 @@ export default function (app: Express) {
     
     app.delete("/auth/logout", invalidateUsersSession);
     
-    //users Endpoints 
-    // app.post("/sendVerifyEmail", sendVerifyEmail);
-    // app.post("/verifyEmail", verifyEmail);
-    // app.post("/updateUsersAccount", updateUsersAccount);
-    // app.post("/deleteUsersAccount", deleteUsersAccount);
-    
+   
     // app.use(Authorization)
     //Transaction Endpoints 
     // app.post("/transaction/makeTransaction",requiresUser, updateTransaction);

@@ -16,8 +16,8 @@ xU+CTZ4rtw8CpdOjDAxMhMuV44OaSx5LEpGCqvX1OQ==
 -----END RSA PRIVATE KEY-----`
 
 export default {
-    port: 8080,
-    host: "localhost",
+    port: process.env.PORT || 8080,
+    host: process.env.HOST || "localhost",
     dbUri: "mongodb+srv://emmanuel:king123@cluster0.cf1oy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     saltFactory: 10,
     privateKey: key,
